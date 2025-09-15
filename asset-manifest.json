@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/geospatial/static/css/main.22fdbdb7.css",
-    "main.js": "/geospatial/static/js/main.ca6f362b.js",
+    "main.js": "/geospatial/static/js/main.ab2ba380.js",
     "static/media/spritesheet.svg": "/geospatial/static/media/spritesheet.a4e0eb7ad904a4858361.svg",
     "index.html": "/geospatial/index.html",
     "main.22fdbdb7.css.map": "/geospatial/static/css/main.22fdbdb7.css.map",
-    "main.ca6f362b.js.map": "/geospatial/static/js/main.ca6f362b.js.map"
+    "main.ab2ba380.js.map": "/geospatial/static/js/main.ab2ba380.js.map"
   },
   "entrypoints": [
     "static/css/main.22fdbdb7.css",
-    "static/js/main.ca6f362b.js"
+    "static/js/main.ab2ba380.js"
   ]
 }
