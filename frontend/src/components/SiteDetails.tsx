@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom'; // ✅ Import RouterLink
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import {
@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -66,6 +66,14 @@ const SiteDetails: React.FC<Props> = ({ token }) => {
       <Typography variant="body1" gutterBottom>Metrics: {data.site.metrics}</Typography>
       <Typography variant="h6" gutterBottom>Analytics Over Time</Typography>
       <Line data={chartData} />
+      <Button
+        component={RouterLink}
+        to="/dashboard"
+        variant="outlined"
+        sx={{ mt: 3 }}
+      >
+        Back to Dashboard
+      </Button>
     </Box>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, Box, Typography, Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // ✅ Import this
 
 interface Props { setToken: (token: string) => void; }
 
@@ -10,6 +11,8 @@ const Login: React.FC<Props> = ({ setToken }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate(); // ✅ Get navigate function
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -21,9 +24,9 @@ const Login: React.FC<Props> = ({ setToken }) => {
         const token = res.data.access_token;
         setToken(token);
         localStorage.setItem('token', token);
-        window.location.href = '/geospatial/dashboard';
+        navigate('/dashboard'); // ✅ Use navigate instead of window.location.href
       } else {
-        window.location.href = '/geospatial';
+        navigate('/'); // ✅ Redirect after registration
       }
     } catch (e: any) {
       setError(e.response?.data?.detail || 'Error occurred');

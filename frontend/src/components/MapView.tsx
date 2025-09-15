@@ -7,6 +7,7 @@ import 'leaflet-draw/dist/leaflet.draw.css';
 import axios from 'axios';
 import { Box, Typography, Alert, Button } from '@mui/material';
 import { FeatureCollection, Geometry } from 'geojson';
+import { useNavigate } from 'react-router-dom'; // ✅ Import useNavigate
 
 // Fix Leaflet icon issue
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -38,6 +39,7 @@ const MapView: React.FC<Props> = ({ token }) => {
   const [error, setError] = useState('');
   const [pendingPolygon, setPendingPolygon] = useState<string | null>(null);
   const center: L.LatLngExpression = [0, 0];
+  const navigate = useNavigate(); // ✅ useNavigate hook
 
   useEffect(() => {
     if (!token) {
@@ -58,7 +60,6 @@ const MapView: React.FC<Props> = ({ token }) => {
 
   const wktToGeoJSON = (wkt: string, siteId: number): CustomFeature | null => {
     try {
-      // Example WKT: POLYGON((0 0, 1 1, 1 0, 0 0))
       const coordsStr = wkt.match(/\(\((.*?)\)\)/)?.[1];
       if (!coordsStr) {
         console.error('Invalid WKT format:', wkt);
@@ -94,7 +95,7 @@ const MapView: React.FC<Props> = ({ token }) => {
 
   const onEachFeature = (feature: CustomFeature, layer: L.Layer) => {
     layer.on('click', () => {
-      window.location.href = `geospatial/site/${feature.properties.id}`;
+      navigate(`/site/${feature.properties.id}`); // ✅ Use navigate instead of window.location.href
     });
   };
 
@@ -143,7 +144,7 @@ const MapView: React.FC<Props> = ({ token }) => {
       .then((res) => {
         console.log('Polygon saved:', res.data);
         setPendingPolygon(null);
-        setSites([...sites, res.data]); // Update sites to trigger re-render
+        setSites([...sites, res.data]);
       })
       .catch((e) => {
         console.error('Failed to save site:', e.response?.data || e.message);
@@ -168,7 +169,7 @@ const MapView: React.FC<Props> = ({ token }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <GeoJSON
-          key={JSON.stringify(geoJsonData)} // Force re-render on data change
+          key={JSON.stringify(geoJsonData)}
           data={geoJsonData}
           onEachFeature={onEachFeature}
           style={{ fillColor: '#088', fillOpacity: 0.8, color: '#088' }}

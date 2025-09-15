@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://a-abrar.github.io/geospatial",
+  "homepage": ".",
   "devDependencies": {
     "gh-pages": "^6.3.0"
   },

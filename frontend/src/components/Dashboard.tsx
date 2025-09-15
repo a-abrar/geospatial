@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, TextField, List, ListItem, ListItemText, Box, Typography, Link } from '@mui/material';
+import { Button, TextField, List, ListItem, ListItemText, Box, Typography, Link as MuiLink } from '@mui/material';
+import { Link } from 'react-router-dom'; // ✅ Import React Router's Link
 
 interface Props { token: string; }
 
@@ -56,7 +57,9 @@ const Dashboard: React.FC<Props> = ({ token }) => {
             <ListItemText
               primary={p.name}
               secondary={
-                <Link href="/map" underline="hover">View on Map</Link>
+                <MuiLink component={Link} to="/map" underline="hover">
+                  View on Map
+                </MuiLink>
               }
             />
           </ListItem>
