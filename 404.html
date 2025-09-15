@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Single Page App</title>
     <script>
-      window.location.href = '/geospatial' + window.location.hash;
+      window.location.href = '/geospatial/' + window.location.pathname.replace(/^\/geospatial/, '') + window.location.hash + window.location.search;
     </script>
   </head>
   <body>
