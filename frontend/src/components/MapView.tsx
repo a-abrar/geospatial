@@ -94,7 +94,7 @@ const MapView: React.FC<Props> = ({ token }) => {
 
   const onEachFeature = (feature: CustomFeature, layer: L.Layer) => {
     layer.on('click', () => {
-      window.location.href = `/site/${feature.properties.id}`;
+      window.location.href = `geospatial/site/${feature.properties.id}`;
     });
   };
 

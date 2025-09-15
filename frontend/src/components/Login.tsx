@@ -21,9 +21,9 @@ const Login: React.FC<Props> = ({ setToken }) => {
         const token = res.data.access_token;
         setToken(token);
         localStorage.setItem('token', token);
-        window.location.href = '/dashboard';
+        window.location.href = '/geospatial/dashboard';
       } else {
-        window.location.href = '/';
+        window.location.href = '/geospatial';
       }
     } catch (e: any) {
       setError(e.response?.data?.detail || 'Error occurred');
