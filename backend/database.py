@@ -25,4 +25,4 @@ class Site(Base):
     id = Column(Integer, primary_key=True)
     project_id = Column(Integer, ForeignKey("projects.id"), nullable=False)
     geometry = Column(Geometry("POLYGON", srid=4326), nullable=False)
-    metrics = Column(String)  # JSON string
+    metrics = Column(String)

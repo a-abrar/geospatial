@@ -16,7 +16,7 @@ const Login: React.FC<Props> = ({ setToken }) => {
     setError('');
     try {
       const endpoint = isRegister ? 'register' : 'login';
-      const res = await axios.post(`http://localhost:8000/${endpoint}`, { username, password });
+      const res = await axios.post(`https://darukaa-backend.onrender.com/${endpoint}`, { username, password });
       if (!isRegister) {
         const token = res.data.access_token;
         setToken(token);

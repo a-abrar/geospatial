@@ -17,7 +17,7 @@ const Dashboard: React.FC<Props> = ({ token }) => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/projects', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get('https://darukaa-backend.onrender.com/projects', { headers: { Authorization: `Bearer ${token}` } });
       setProjects(res.data);
     } catch (e) {
       console.error('Failed to fetch projects');
@@ -27,7 +27,7 @@ const Dashboard: React.FC<Props> = ({ token }) => {
   const createProject = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8000/projects', { name }, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.post('https://darukaa-backend.onrender.com/projects', { name }, { headers: { Authorization: `Bearer ${token}` } });
       setProjects([...projects, res.data]);
       setName('');
     } catch (e) {

@@ -27,7 +27,7 @@ const SiteDetails: React.FC<Props> = ({ token }) => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://localhost:8000/sites/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+      axios.get(`https://darukaa-backend.onrender.com/${id}`, { headers: { Authorization: `Bearer ${token}` } })
         .then(res => {
           setData(res.data);
           setLoading(false);

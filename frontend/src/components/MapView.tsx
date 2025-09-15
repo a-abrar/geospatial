@@ -45,7 +45,7 @@ const MapView: React.FC<Props> = ({ token }) => {
       return;
     }
     axios
-      .get('http://localhost:8000/sites', { headers: { Authorization: `Bearer ${token}` } })
+      .get('https://darukaa-backend.onrender.com/sites', { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         console.log('Fetched sites:', res.data);
         setSites(res.data);
@@ -132,7 +132,7 @@ const MapView: React.FC<Props> = ({ token }) => {
     console.log('Saving polygon:', { project_id: 1, geometry: pendingPolygon, metrics: JSON.stringify({ carbon: 100, biodiversity: 80 }) });
     axios
       .post(
-        'http://localhost:8000/sites',
+        'https://darukaa-backend.onrender.com/sites',
         {
           project_id: 1,
           geometry: pendingPolygon,
