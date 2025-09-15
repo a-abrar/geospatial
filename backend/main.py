@@ -14,10 +14,14 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://a-abrar.github.io/geospatial"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://a-abrar.github.io",
+        "https://a-abrar.github.io/geospatial"
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"], 
+    allow_headers=["Authorization", "Content-Type"],  
 )
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
