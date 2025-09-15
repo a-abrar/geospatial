@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://darukaa_db_user:vVBLHiECKs4lYU8tVjKNy72dSnS2EnAv@dpg-d33rq80dl3ps7394dbp0-a.singapore-postgres.render.com/darukaa_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:Abrar%401882001@localhost:5432/darukaa")
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -23,5 +23,8 @@ class Site(Base):
     __tablename__ = "sites"
     id = Column(Integer, primary_key=True)
     project_id = Column(Integer, ForeignKey("projects.id"), nullable=False)
-    geometry = Column(String, nullable=False)  # Store WKT as text (no PostGIS)
+    geometry = Column(String, nullable=False)  # Store WKT as text
     metrics = Column(String)
+
+# Create tables on startup
+Base.metadata.create_all(bind=engine)
