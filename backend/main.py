@@ -91,19 +91,36 @@ async def create_project(project: ProjectCreate, db: Session = Depends(get_db)):
     db.refresh(db_project)
     return db_project
 
+@app.post("/sites")
+async def create_site(site: SiteCreate, db: Session = Depends(get_db)):
+    try:
+        db_project = db.query(Project).filter(Project.id == site.project_id).first()
+        if not db_project:
+            raise HTTPException(status_code=400, detail=f"Project ID {site.project_id} does not exist")
+        if not site.geometry.startswith("POLYGON(("):
+            raise HTTPException(status_code=400, detail="Invalid WKT format. Must be POLYGON.")
+        db_site = Site(
+            project_id=site.project_id,
+            geometry=site.geometry,  # Store as string
+            metrics=site.metrics
+        )
+        db.add(db_site)
+        db.commit()
+        db.refresh(db_site)
+        return db_site
+    except Exception as e:
+        db.rollback()
+        print(f"Site creation error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to save site: {str(e)}")
+
 @app.get("/sites", response_model=List[SiteResponse])
 async def get_sites(db: Session = Depends(get_db)):
     try:
         sites = db.query(Site).all()
-        for site in sites:
-            site.geometry = db.scalar(func.ST_AsText(site.geometry))
-        return sites
+        return sites  # Geometry is already string
     except Exception as e:
         print(f"Get sites error: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch sites")
-
-@app.post("/sites")
-async def create_site(site: SiteCreate, db: Session = Depends(get_db)):
     try:
         db_project = db.query(Project).filter(Project.id == site.project_id).first()
         if not db_project:
